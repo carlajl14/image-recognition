@@ -8,8 +8,8 @@ import io
 app = Flask(__name__)
 
 # Cargar el modelo pre-entrenado MobileNetV2
-def load_model():
-    return MobileNetV2(weights='imagenet')
+#def load_model():
+    #return MobileNetV2(weights='imagenet')
 
 @app.route('/predict', methods=['POST'])
 def predict():
