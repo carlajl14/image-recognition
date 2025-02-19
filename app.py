@@ -1,14 +1,15 @@
 from flask import Flask, request, jsonify
 import tensorflow as tf
-from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
+from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2, preprocess_input, decode_predictions
 from PIL import Image
 import numpy as np
 import io
 
 app = Flask(__name__)
 
-# Cargar el modelo pre-entrenado InceptionV3
-model = InceptionV3(weights='imagenet')
+# Cargar el modelo pre-entrenado MobileNetV2
+def load_model():
+    return MobileNetV2(weights='imagenet')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -22,14 +23,15 @@ def predict():
     img = Image.open(io.BytesIO(file.read()))
 
     # Preprocesar la imagen
-    img = img.resize((299, 299))
+    img = img.resize((224, 224))  # Cambiar el tamaño para MobileNetV2
     img_array = np.array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
 
-    # Realizar la predicción
+    # Cargar el modelo y realizar la predicción
+    model = load_model()
     predictions = model.predict(img_array)
-    decoded_predictions = decode_predictions(predictions, top=1)[0]  # Obtener solo la predicción más probable
+    decoded_predictions = decode_predictions(predictions, top=1)[0]
 
     # Formatear la respuesta
     top_prediction = decoded_predictions[0]
