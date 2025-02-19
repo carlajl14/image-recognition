@@ -14,9 +14,9 @@ def load_model():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Verificar el encabezado de RapidAPI
-    rapidapi_secret = request.headers.get('X-RapidAPI-Proxy-Secret')
-    if rapidapi_secret != '5ec60b00-eddc-11ef-9c15-59f608f93374':
-        return jsonify({'error': 'Acceso no autorizado'}), 403
+    #rapidapi_secret = request.headers.get('X-RapidAPI-Proxy-Secret')
+    #if rapidapi_secret != '5ec60b00-eddc-11ef-9c15-59f608f93374':
+        #return jsonify({'error': 'Acceso no autorizado'}), 403
 
     # Obtener la imagen de la solicitud
     file = request.files['image']
