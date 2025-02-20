@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5000
 
 # Definir el comando por defecto para ejecutar la aplicación
-CMD ["python", "main.py"]
+CMD ["python", "app.py"]
