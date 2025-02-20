@@ -17,15 +17,22 @@ def predict():
         img = img.resize((224, 224))
         img_array = np.array(img)
 
-        # Verificar y convertir el tipo de dato de la imagen a uint8 si es necesario
-        print(f"Tipo de dato antes de la conversión: {img_array.dtype}")
-        if img_array.dtype != np.uint8:
-            img_array = img_array.astype(np.uint8)
-        print(f"Tipo de dato después de la conversión: {img_array.dtype}")
+        # Verificar tipo de dato antes de la conversión
+        print(f"Tipo de dato antes de preprocess_input: {img_array.dtype}")
 
+        # Aplicar preprocesamiento del modelo
         img_array = preprocess_input(img_array)
 
-        # Convertir la imagen a escala de grises para el modelo de Harris
+        # Verificar tipo de dato después del preprocesamiento
+        print(f"Tipo de dato después de preprocess_input: {img_array.dtype}")
+
+        # Convertir a uint8 si es necesario
+        if img_array.dtype != np.uint8:
+            img_array = (img_array * 255).astype(np.uint8)
+
+        print(f"Tipo de dato después de conversión a uint8: {img_array.dtype}")
+
+        # Convertir a escala de grises para Harris
         gray = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
 
         # Aplicar el modelo para detectar esquinas
