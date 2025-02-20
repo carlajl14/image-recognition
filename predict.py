@@ -2,9 +2,8 @@ from flask import request, jsonify
 from PIL import Image
 import numpy as np
 import io
-from model import load_model
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input, decode_predictions
-import setuptools.distutils
+from model import load_model, preprocess_input
+import cv2
 
 model = load_model()
 
@@ -17,15 +16,20 @@ def predict():
         img = Image.open(io.BytesIO(file.read()))
         img = img.resize((224, 224))
         img_array = np.array(img)
-        img_array = np.expand_dims(img_array, axis=0)
         img_array = preprocess_input(img_array)
 
-        predictions = model.predict(img_array)
-        decoded_predictions = decode_predictions(predictions, top=3)[0]
+        # Convertir la imagen a escala de grises para el modelo de Harris
+        gray = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
+
+        # Aplicar el modelo para detectar esquinas
+        corners = model(gray)
+
+        # Obtener las coordenadas de las esquinas detectadas
+        coordinates = np.argwhere(corners > corners.mean())
 
         results = [
-            {"label": pred[1], "confidence": float(pred[2])}
-            for pred in decoded_predictions
+            {"coordinate": (int(coord[1]), int(coord[0])), "response": float(corners[coord[0], coord[1]])}
+            for coord in coordinates
         ]
 
         return jsonify(results)
