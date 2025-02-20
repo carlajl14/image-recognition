@@ -17,9 +17,11 @@ def predict():
         img = img.resize((224, 224))
         img_array = np.array(img)
 
-        # Asegurarse de que la imagen esté en formato uint8
+        # Verificar y convertir el tipo de dato de la imagen a uint8 si es necesario
+        print(f"Tipo de dato antes de la conversión: {img_array.dtype}")
         if img_array.dtype != np.uint8:
             img_array = img_array.astype(np.uint8)
+        print(f"Tipo de dato después de la conversión: {img_array.dtype}")
 
         img_array = preprocess_input(img_array)
 
