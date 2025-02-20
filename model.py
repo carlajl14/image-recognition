@@ -1,10 +1,10 @@
-from skimage import data, io, filters, feature, color
-from skimage.transform import resize
+# model.py
+import cv2
 import numpy as np
 
 def load_model():
-    # Cargar el modelo preentrenado, en este caso el modelo de detección de características de Harris
-    return feature.corner_harris
+    # Aquí deberías cargar el modelo de Harris o cualquier otro modelo más ligero.
+    return cv2.cornerHarris
 
 def preprocess_input(image_array):
     # Normalizar la imagen

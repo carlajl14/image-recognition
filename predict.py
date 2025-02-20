@@ -1,3 +1,4 @@
+# predict.py
 from flask import request, jsonify
 from PIL import Image
 import numpy as np
@@ -22,7 +23,7 @@ def predict():
         gray = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
 
         # Aplicar el modelo para detectar esquinas
-        corners = model(gray)
+        corners = model(gray, 2, 3, 0.04)
 
         # Obtener las coordenadas de las esquinas detectadas
         coordinates = np.argwhere(corners > corners.mean())
