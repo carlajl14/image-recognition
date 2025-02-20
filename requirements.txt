@@ -2,3 +2,5 @@ flask==3.1.0
 tensorflow==2.18.0
 pillow==11.1.0
 numpy==1.19.5
+setuptools==75.8.0
+six==1.17.0
