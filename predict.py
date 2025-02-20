@@ -16,6 +16,11 @@ def predict():
         img = Image.open(io.BytesIO(file.read()))
         img = img.resize((224, 224))
         img_array = np.array(img)
+
+        # Asegurarse de que la imagen esté en formato uint8
+        if img_array.dtype != np.uint8:
+            img_array = img_array.astype(np.uint8)
+
         img_array = preprocess_input(img_array)
 
         # Convertir la imagen a escala de grises para el modelo de Harris
