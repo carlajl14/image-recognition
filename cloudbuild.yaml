@@ -1,0 +1,7 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/7014c266-286b-43a0-ae0d-d72dbbd20073/image-recognition-00001-w7r:$SHORT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/7014c266-286b-43a0-ae0d-d72dbbd20073/image-recognition-00001-w7r:$SHORT_SHA']
+images:
+  - 'gcr.io/7014c266-286b-43a0-ae0d-d72dbbd20073/image-recognition-00001-w7r:$SHORT_SHA'
