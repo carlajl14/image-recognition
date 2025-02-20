@@ -1,4 +1,3 @@
-# predict.py
 from flask import request, jsonify
 from PIL import Image
 import numpy as np
