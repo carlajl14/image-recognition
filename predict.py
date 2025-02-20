@@ -4,6 +4,7 @@ import numpy as np
 import io
 from model import load_model
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input, decode_predictions
+import distutils
 
 model = load_model()
 
