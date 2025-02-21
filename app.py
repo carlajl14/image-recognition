@@ -6,7 +6,7 @@ from ultralytics import YOLO
 
 app = Flask(__name__)
 
-model = YOLO("yolov11n.pt")
+model = YOLO("yolo11n.pt")
 
 @app.route("/predict", methods=["POST"])
 def predict():
